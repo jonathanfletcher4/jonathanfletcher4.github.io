@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7897aa5-b0e6-4145-8e61-d29f4c4a4634" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_posts/2020-11-29-nlp_disaster_tweets.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2020-11-29-nlp_disaster_tweets.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +32,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608591950558</updated>
-      <workItem from="1608591954286" duration="927000" />
+      <workItem from="1608591954286" duration="1421000" />
     </task>
     <servers />
   </component>
