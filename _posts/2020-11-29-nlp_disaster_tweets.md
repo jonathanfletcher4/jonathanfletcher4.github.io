@@ -13,15 +13,15 @@ In 2017 Figure-Eight released a dataset of 10,876 tweets (now available through 
 
 See below for snapshot of some of the tweets and their respective labels.
 
-
-|      | keyword          | text                                                                                                                                      |   relevant |
-|-----:|:-----------------|:------------------------------------------------------------------------------------------------------------------------------------------|-----------:|
-| 7785 | police           | -=-0!!!!. Photo: LASTMA officials challenge police for driving against traffic in Lagos http://t.co/8VzsfTR1bG                            |          1 |
-| 7956 | rainstorm        | @SavanahResnik @CBS12 I would hide out at the Coldstone at monterrey and us 1. Great place to wait out a rainstorm.                       |          1 |
-| 1884 | burning          | WoW Legion ÛÒ Slouching Towards The Broken Isles: Warlords of Draenor wasnÛªt close enough to The Burning Crusad... http://t.co/RKpmoMQMUi                                                                                                                                           |          1 |
-| 7294 | nuclear disaster | Chernobyl disaster - Wikipedia the free encyclopedia don't you just love the nuclear technology it's so glorious  https://t.co/GHucazjSxB |          1 |
-| 1699 | bridge collapse  | Two giant cranes holding a bridge collapse into nearby homes http://t.co/jBJRg3eP1Q                                                       |          1 |
-
+    
+    |      | keyword          | text                                                                                                                                      |   relevant |
+    |-----:|:-----------------|:------------------------------------------------------------------------------------------------------------------------------------------|-----------:|
+    | 7785 | police           | -=-0!!!!. Photo: LASTMA officials challenge police for driving against traffic in Lagos http://t.co/8VzsfTR1bG                            |          1 |
+    | 7956 | rainstorm        | @SavanahResnik @CBS12 I would hide out at the Coldstone at monterrey and us 1. Great place to wait out a rainstorm.                       |          1 |
+    | 1884 | burning          | WoW Legion ÛÒ Slouching Towards The Broken Isles: Warlords of Draenor wasnÛªt close enough to The Burning Crusad... http://t.co/RKpmoMQMUi                                                                                                                                           |          1 |
+    | 7294 | nuclear disaster | Chernobyl disaster - Wikipedia the free encyclopedia don't you just love the nuclear technology it's so glorious  https://t.co/GHucazjSxB |          1 |
+    | 1699 | bridge collapse  | Two giant cranes holding a bridge collapse into nearby homes http://t.co/jBJRg3eP1Q                                                       |          1 |
+    
 
 # Preprocessing
 
