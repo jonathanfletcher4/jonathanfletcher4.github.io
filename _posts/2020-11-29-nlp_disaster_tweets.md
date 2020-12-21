@@ -490,10 +490,6 @@ The process for training the Bidirectional is the same as the 1-directional LSTM
 
 ## Performance
 
-First we look at the loss function over each epoch. The one-directional model improves after each epoch before starting to plateau after 14 epochs. The bidirectional model has a worse starting position but evenutally the loss function improves more than the one-directional model. It also doesn't start to plataeu so if we were to increase the number of epochs we could see better  even performance
-
-
-
 We can see that both models score similarly, the Bidirectional model ends slightly better but has far better performance over the first few epochs but plateaus quickly. The 1-directional model conversely starts worse but improves significantly, eventually reaching similar levels to the Bidirectional model
 
 Looking at f1-score both models perform well, far better than the baseline indicating that both the models do a good job at both reducing False Positives (precision) and increasing recall. 
