@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Site Title"
+title                    : "jonathanfletcher4.github.io"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Jonathan Fletcher"
@@ -95,7 +95,7 @@ analytics:
 author:
   name             : "Jonathan Fletcher"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Catching vibes."
+  bio              : "Data Scientist in Tech.Catching vibes."
   location         : "Somewhere"
   email            :
   links:
