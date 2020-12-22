@@ -95,7 +95,7 @@ analytics:
 author:
   name             : "Jonathan Fletcher"
   avatar           : "images/avi.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Data Scientist in Fintech &#57356 <br> Msc Georgia Tech &Sigma <br> Catching vibes <p><span>&#127940;&#127997;</span> Medium skin tone</p>"
+  bio              : "Data Scientist in Fintech <span> &#57356</span> <br> Msc Georgia Tech <span> &Sigma </span> <br> Catching vibes <span>&#127940;&#127997;</span>"
   location         :
   email            :
   links:
