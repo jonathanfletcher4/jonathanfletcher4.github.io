@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7897aa5-b0e6-4145-8e61-d29f4c4a4634" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2020-10-10-isomap.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2020-11-29-nlp_disaster_tweets.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/404.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/config.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/first-post.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/circles.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/circles2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/output_13_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/output_15_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/output_3_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/isomap/pca1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/jekyll-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/jekyll-now-theme-screenshot.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_16_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_29_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_32_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_34_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_57_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/nlp_disaster_tweets/output_60_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/step1.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_includes/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/head.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +32,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608591950558</updated>
-      <workItem from="1608591954286" duration="3166000" />
+      <workItem from="1608591954286" duration="4030000" />
     </task>
     <servers />
   </component>
