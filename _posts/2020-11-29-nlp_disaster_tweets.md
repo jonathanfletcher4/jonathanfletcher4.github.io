@@ -1,5 +1,5 @@
 ---
-title: "NLP Predicting Disaster Tweets"
+title: "NLP: Predicting Disaster Tweets"
 ---
 
 In this post we will go through the basics of building an NLP neural network using GloVe embeddings to classify tweets about natural disasters. It uses Keras and assumes basic knowledge of neural network architecture (namely just the different types of layers)
