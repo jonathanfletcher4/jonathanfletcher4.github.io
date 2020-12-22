@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "NLP Predicting Disaster Tweets"
 ---
 
