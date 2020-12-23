@@ -1,4 +1,6 @@
-# Unit Testing: Patching
+---
+title: "Unit Testing functions which connect to external data sources"
+---
 
 In this post we'll go over how to use patching (aka mocking) to unit test functions which connect to external data sources. It assumes prior basic knowledge of unit testing with PyTest
 
