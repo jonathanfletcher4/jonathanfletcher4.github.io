@@ -27,7 +27,10 @@ See below for snapshot of some of the tweets and their respective labels.
 Given these are tweets pulled directly from Twitter significant amounts of preprocessing were requried:
 
 - Punctuation, symbols and numbers were removed using Regex patterns  
-- Credit to kaggle.com/gunesevitan (see his work [here](https://www.kaggle.com/gunesevitan/nlp-with-disaster-tweets-eda-full-cleaning#4.-Embeddings-&-Text-Cleaning)) for carrying out a huge amount of manual preprocessing of typos, acronyms and abbreviations on this dataset which we can leverage 
+- Fixing acronyms, abbreviations and typos. This is largely manual work.
+- Convert to lower case. Not strictly necessary but we will for this post.
+
+Credit to kaggle.com/gunesevitan (see his work [here](https://www.kaggle.com/gunesevitan/nlp-with-disaster-tweets-eda-full-cleaning#4.-Embeddings-&-Text-Cleaning)) for carrying out a huge amount of manual preprocessing of typos, acronyms and abbreviations on this dataset which we can leverage 
 
 Below is an example of a tweet before and after preprocessing. We see the link and symbols have been removed and set to lower case
 
@@ -42,14 +45,141 @@ Below is an example of a tweet before and after preprocessing. We see the link a
 ## Embeddings
 In order for the data to be used in a machine learning model words need to be converted into numbers (tokens) which have meaning and from which predictions can be made. For this project the *glove.twitter.27B.25d* embeddings dataset was used to tokenize the tweets.
 
-There are multiple different GloVe embeddings datasets which are trained on different corpuses of data. This specific embedding is trained on 2 billion tweets (27 billion tokens) and represented in a 25-dimensional vector. Here training means the model learns context around words. Words that appear together or in the same sentence more often are more "similar".
+There are multiple different GloVe embeddings datasets which are trained on different corpuses of data. This specific embedding is trained on 2 billion tweets (27 billion tokens) and represented in a 25-dimensional vector. Here training means the model learns context around words. Words that appear together or in the same sentence more often are more " linguistically similar".
 
 GloVe creates a word-word matrix and uses K-Nearest Neighbours to identify words which are similar. Below is an example of a word-word matrix for the sentences *"I can see a fire in the woods"* and *"This mixtape is fire"*,  greater values mean the words are more linguistically similar and lower values mean the words are less similar
 
-First we load the glove embeddings (you can download this or others [here](https://nlp.stanford.edu/projects/glove/))
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>album</th>
+      <th>fire</th>
+      <th>in</th>
+      <th>is</th>
+      <th>scary</th>
+      <th>the</th>
+      <th>this</th>
+      <th>woods</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>album</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>fire</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>in</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>is</th>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>scary</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>the</th>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>this</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>woods</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+To create our tweets embeddings matrix from our we first we load the glove embeddings (you can download this or others [here](https://nlp.stanford.edu/projects/glove/))
 
 
 ```python
+import numpy as np
+import pandas as pd
+
 ## GLOVE ##
 
 glove_embeddings = {}
@@ -65,14 +195,14 @@ with open("~/glove.twitter.27B.25d.txt", 'r', encoding="utf8") as f:
 
 
 ```python
-vocab = {}
+vocabulary = {}
 
 for tweet in df['text2']:
     for word in tweet.split():
         try:
-            vocab[word] += 1
+            vocabulary[word] += 1
         except KeyError:
-            vocab[word] = 1
+            vocabulary[word] = 1
 ```
 
 - Now we check how many of our words exist in the gloVe embeddings.
@@ -82,21 +212,21 @@ for tweet in df['text2']:
 ```python
 covered = {}
 oov = {}    
-n_covered = 0
-n_oov = 0
+covered = 0
+oov = 0
 
 for word in vocab:
     try:
         covered[word] = glove_embeddings[word]
-        n_covered += 1
+        covered += 1
     except:
         oov[word] = vocab[word]
-        n_oov += 1
+        oov += 1
 ```
 
-With 27 billion words this becomes a huge matrix and extremely computationally expensive to run any analysis on. GloVe uses dimensionality reduction to create a $n \times 25$ representation of the similarities making it easier to use for use cases such as this project.
+With 27 billion words this becomes a huge matrix and extremely computationally expensive to run any analysis on. GloVe uses dimensionality reduction to create a $n \times 25$ representation of the similarities making it easier to use for use cases such as this post.
 
-Below is a 2-dimensional ISOMAP representation of a random sample of 50 embeddings from the GloVe dataset. We can see at the top the words are closer together *evacuation, wildfires, fleeing* which makes logical sense as these are commonly associated with each other. Near the center we have *cities, shelter, residents* close together which also makes logical sense. This mapping is used for all words in our tweet vocabulary which also appear in the GloVe embeddings.
+To get an idea of what this means, we can create a 2-dimensional representation using ISOMAP (or any other dimensionality reduction technique) and to visualize the embeddings. Below is a random sample of 50 word embeddings from the gloVe dataset. We can see at the top the words are closer together *evacuation, wildfires, fleeing* which makes logical sense as these are commonly associated with each other. Near the center we have *cities, shelter, residents* close together which also makes logical sense. This mapping is used for all words in our tweet vocabulary which also appear in the GloVe embeddings.
 
 
 
@@ -125,54 +255,54 @@ def create_corpus(df, col):
         words=[word.lower() for word in word_tokenize(tweet) if((word.isalpha()==1) & (word not in STOPWORDS))]
         corpus.append(words)
     return corpus
-```
-
-
-```python
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # create corpus
 corpus = create_corpus(df, 'text')
 ```
+
 
 - Tokenize words (assign word to a number) and convert sentences of words to sequences of tokens
  
 
 
 ```python
-# max sequence length
-MAX_LEN = 50
-tokenizer_obj = Tokenizer()
+from tensorflow.keras.preprocessing.text import Tokenizer
+
+tokenizer_tw = Tokenizer()
 
 # Assigns each unique word to a numbered tokens
-tokenizer_obj.fit_on_texts(corpus)
+tokenizer_tw.fit_on_texts(corpus)
 
 # Converts tweets from words to numbered tokens
-sequences = tokenizer_obj.texts_to_sequences(corpus)
+sequences = tokenizer_tw.texts_to_sequences(corpus)
 ```
 
 - Pad sequences - we want all sequences to have the same length (dimensions) so we choose a max length of sequences and pad shorter sequences with trailing 0's to ensure they are all the same length. This is will be the **input layer** of our neural network
 
 
 ```python
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+# max sequence length
+max_seq_len = 50
+
 # Pads vectorized tweets with 0's so they are all the same length
-tweet_pad = pad_sequences(sequences, maxlen=MAX_LEN, truncating='post', padding='post')
+tweet_pad = pad_sequences(sequences, maxlen=max_seq_len, truncating='post', padding='post')
 ```
 
-- Create gloVe embeddings vectors by retrieving gloVe embedding of each word. This will be the **embeddings layer**  which maps our sequences of tokens to their corresponding gloVe vector representations .
+- Create embeddings matrix by retrieving gloVe embedding of each word. This will be the **embeddings layer**  which maps our sequences of tokens to their corresponding gloVe vector representations .
 
 
 ```python
 # Dictionary with words as keys and count as values
-word_index=tokenizer_obj.word_index
+word_index = tokenizer_tw.word_index
 print('Unique words:',len(word_index))
 
 # Number of unique words
-num_words=len(word_index)+1
+num_words = len(word_index)+1
 
 # Matrix for embeddings vectors. Each row is a unique word. Columns are glove embedding vector (in this case 25 cols)
-embedding_matrix=np.zeros((num_words,25))
+embedding_matrix = np.zeros((num_words,25))
 
 for word,i in word_index.items():
     if i > num_words:
@@ -275,14 +405,14 @@ y_test = df['relevant'].values[train_index:]
 
 - *Credit to [this](https://stackoverflow.com/a/56485026) great Stackoverflow answer*. Next we create a callback that allows us to get an **f1-score (or any other metric) for our model after each epoch**. Natively Keras only records loss and accuarcy after each epoch. 
 
-- It runs model.predict() method after each epoch, evaluates performance with sklearns classification_report and outputs into a list. We access the scores using the model.get() method
+- It runs .predict() method after each epoch, evaluates performance with sklearns classification_report and outputs into a list. We access the scores using the .get() method
 
-- We can also pass 2 *Metrics* objects in the same model to score both training set and validaiton set results separately and concurrently
+- We can also pass 2 Metrics objects in the same model to score both training set and validation set results separately and concurrently
 
 
 ```python
 from tensorflow.keras.callbacks import Callback
-from sklearn.metrics import recall_score, classification_report
+from sklearn.metrics import classification_report
 
 # 1-directional
 
@@ -308,47 +438,46 @@ class Metrics(Callback):
 
 ## LSTM 1-directional model
 
-Now we can build our LSTM models. We'll start with the 1-directional (left-to-right) model. We build separate models for Tweets and Keywords data, then we use Keras' concatenate function to combine them before compiling
+To compile our LSTM model we first build separate models for Tweets and Keywords data, then we use Keras' concatenate function to combine them before compiling
 
 - We start by creating our input layer. The dimensions should match our padded sequence (50 for Tweets data, 3 for Keywords)
 
 
 
 ```python
-from tensorflow.keras.layers import concatenate
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Embedding,LSTM,Dense,SpatialDropout1D, Input, Bidirectional, Dropout
-from tensorflow.keras.initializers import Constant
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Input
 
 ## Tweets input layer ##
-input1 = Input(shape=(MAX_LEN,))
+input1 = Input(shape=(max_seq_len,))
 
 ## KEYWORD MODEL ##
-input2 = Input(shape=(MAX_LEN_KW,))
+input2 = Input(shape=(max_seq_len_kw,))
 
 ```
 
 - Next we add our embeddings layer, to map our padded sequences to their gloVe vector representations. 
     - Note that the output_dim here should match the dimensions of your gloVe embeddings, in our case it's 25
-    - trainable is set to false since the gloVe is a pretrained dataset
+    - trainable is set to false since gloVe is a pretrained dataset
 
 
 ```python
+from tensorflow.keras.layers import Embedding
+
 # Tweets Embedding Layer
 embedding_layer = Embedding(input_dim=num_words, output_dim=25, embeddings_initializer=Constant(embedding_matrix),
-                   input_length=MAX_LEN, trainable=False)(input1)
+                   input_length=max_seq_len, trainable=False)(input1)
 
 # Keyword Embeddings layer
 embedding_layer_kw = Embedding(input_dim=num_words_kw, output_dim=25, embeddings_initializer=Constant(embedding_matrix_kw),
-                   input_length=MAX_LEN2, trainable=False)(input_kw)
+                   input_length=max_seq_len_kw, trainable=False)(input_kw)
 ```
 
 - Then we add the hidden layers, as mentioned before there are limitless options for these, the 3 layers used are just one example.
 
 
 ```python
+from tensorflow.keras.layers import LSTM, Dropout, Bidirectional
+
 # Tweet Hidden layers 
 tweet_1 = LSTM(64, dropout=0.2, recurrent_dropout=0.2,  return_sequences = True)(embedding_layer)
 tweet_2 = LSTM(64, dropout=0.2, recurrent_dropout=0.2, return_sequences = True)(tweet_1)
@@ -364,6 +493,8 @@ kw_3 = LSTM(64, dropout=0.2, recurrent_dropout=0.2)(kw_2)
 
 
 ```python
+from tensorflow.keras.layers import concatenate
+
 ## CONCATENATE ##
 combo = concatenate([tweet_3, kw_3])
 ```
@@ -373,6 +504,10 @@ combo = concatenate([tweet_3, kw_3])
 
 
 ```python
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+
 # Dense output layer
 output = Dense(1, activation='sigmoid')(combo)
 
@@ -483,7 +618,7 @@ print()
 
 # Bidrectional LSTM model
 
-The process for training the Bidirectional is the same as the 1-directional LSTM just with Bidirectional hidden layers instead. We'll just focus on the results here but the code is available in the notebook link at the end of the page.
+The process for training the Bidirectional is the same as the 1-directional LSTM just with Bidirectional hidden layers instead, to do this we just replace LSTM objects with the Bidirectional object. We'll just focus on the results here but the code is available in the notebook link at the end of the page.
 
     
 
@@ -501,7 +636,7 @@ Looking at f1-score both models perform well, far better than the baseline indic
 
 
 ## Performance by Keyword
-For different types of events it may be easier for the model to identify Relevant tweets given the langauge used for some types of disaster are more likely to appear in general conversation than others. For example *fire* can appear in many common non-disaster conversations whereas *suicide bomber* is less likely to.
+For different types of events it may be easier for the model to identify Relevant tweets given the language used for some types of disaster are more likely to appear in general conversation than others. For example *fire* can appear in many common non-disaster conversations whereas *suicide bomber* is less likely to.
 
 Below we can see this reflected in the models score for tweets which contain certain keywords. The model performs better for tweets containing keywords such as *suicide bomber, wreckage, wounded, survived* which are less likely to appear in normal conversation. Whereas for keywords such as *threat, trauma, trouble* the model performs worse, this is likely because there are more contexts which these words appear in general conversation.
 

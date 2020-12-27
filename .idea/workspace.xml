@@ -20,8 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7897aa5-b0e6-4145-8e61-d29f4c4a4634" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jonathanfletcher4.github.io.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jonathanfletcher4.github.io.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,10 +47,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/projects/unit_test_patching" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Masters/CSE6242 - Data &amp; Visual Analytics/prep" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jonat\Documents\Python Scripts\jonathanfletcher4.github.io\projects\nlp_disaster_tweets" />
       <recent name="C:\Users\jonat\Documents\Python Scripts\jonathanfletcher4.github.io\_posts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -86,5 +85,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="670" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609078940235">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="670" y="322" key="#com.intellij.fileTypes.FileTypeChooser/1920.-314.1536.848/0.0.1920.1040@0.0.1920.1040" timestamp="1609078940235" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1609079238415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.-314.1536.848/0.0.1920.1040@0.0.1920.1040" timestamp="1609079238415" />
   </component>
 </project>
